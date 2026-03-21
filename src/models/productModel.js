@@ -1,6 +1,9 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/db.js');
 
+const ProductImage = require('./ProductImage.js');
+const ProductOption = require('./ProductOptionModel.js');
+
 const Product = sequelize.define('Product', {
   id: {
     type: DataTypes.INTEGER,
@@ -47,5 +50,8 @@ const Product = sequelize.define('Product', {
   timestamps: true,
   underscored: true,
 });
+
+Product.hasMany(ProductImage, {foreignKey: "product_id"});
+Product.hasMany(ProductOption, {foreignKey: "product_id"})
 
 module.exports = Product;
