@@ -1,8 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/db.js');
 
-const Product = require('./ProductModel.js');
-
 const ProductImage = sequelize.define('ProductImage', {
   id: {
     type: DataTypes.INTEGER,
@@ -13,10 +11,10 @@ const ProductImage = sequelize.define('ProductImage', {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: 'products', // nome da tabela
+      model: 'products',
       key: 'id',
     },
-    onDelete: 'CASCADE', // se deletar produto, deleta imagens 🔥
+    onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
   },
   enabled: {
@@ -33,7 +31,5 @@ const ProductImage = sequelize.define('ProductImage', {
   timestamps: true,
   underscored: true,
 });
-
-ProductImage.belongsTo(Product, {foreignKey: 'product_id'})
 
 module.exports = ProductImage;
