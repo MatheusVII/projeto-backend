@@ -8,7 +8,8 @@
   },
   "scripts": {
     "test": "nodemon tests/conTest.js",
-    "sync": "nodemon src/config/syncDb.js"
+    "sync": "nodemon src/config/syncDb.js",
+    "dev": "nodemon src/server.js"
   },
   "repository": {
     "type": "git",
@@ -23,6 +24,7 @@
   },
   "homepage": "https://github.com/MatheusVII/projeto-backend#readme",
   "dependencies": {
+    "bcryptjs": "^3.0.3",
     "dotenv": "^17.3.1",
     "express": "^5.2.1",
     "nodemon": "^3.1.14",

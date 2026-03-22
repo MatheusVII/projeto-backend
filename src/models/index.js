@@ -6,6 +6,7 @@ const Product = require('./ProductModel.js');
 const ProductCategory = require('./ProductCategoryModel.js');
 const ProductImage = require('./ProductImage.js');
 const ProductOption = require('./productOptionModel.js');
+const User = require('./UserModel.js');
 
 Product.belongsToMany(Category, {
   through: ProductCategory,
@@ -37,6 +38,7 @@ ProductOption.belongsTo(Product, {
 
 module.exports = {
   sequelize,
+  User,
   Category,
   Product,
   ProductCategory,

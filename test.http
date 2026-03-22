@@ -1,0 +1,29 @@
+GET http://localhost:3000/v1/user/1
+
+###
+
+POST http://localhost:3000/v1/user
+Content-Type: application/json
+
+{
+  "firstname": "user firstname",
+  "surname": "user surname",
+  "email": "user@mail.com",
+  "password": "123@123",
+  "confirmPassword": "123@123"
+}  
+
+###
+
+PUT http://localhost:3000/v1/user/2
+Content-Type: application/json
+
+{
+  "firstname": "user firstname 2",
+  "surname": "user surname",
+  "email": "user@mail.com"
+}  
+
+###
+
+DELETE http://localhost:3000/v1/user/2
