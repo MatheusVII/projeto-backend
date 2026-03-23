@@ -1,0 +1,31 @@
+GET http://localhost:3000/v1/category/search?limit=-1
+
+###
+
+GET http://localhost:3000/v1/category/3
+
+###
+
+POST http://localhost:3000/v1/category
+Content-Type: application/json
+
+{
+  "name": "shoes",
+  "slug": "shoes",
+  "use_in_menu": true
+}  
+###
+
+PUT http://localhost:3000/v1/category/2
+Content-Type: application/json
+
+{
+  "name": "nao sei",
+  "slug": "cavalo",
+  "use_in_menu": false
+}  
+
+
+###
+
+DELETE http://localhost:3000/v1/category/2
