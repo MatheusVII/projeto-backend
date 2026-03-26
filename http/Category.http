@@ -1,3 +1,5 @@
+#Token para o email user@mail.com e a senha 123@123, valido por um dia, gere um novo token em /http/user.http
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJ1c2VyQG1haWwuY29tIiwiaWF0IjoxNzc0NTQyNDAxLCJleHAiOjE3NzQ2Mjg4MDF9.kE8FbLRsmUFGGEjANubRJdCjZLlHTh_S9DNIVz5kPsM
 GET http://localhost:3000/v1/category/search?limit=-1
 
 ###
@@ -8,6 +10,7 @@ GET http://localhost:3000/v1/category/3
 
 POST http://localhost:3000/v1/category
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
   "name": "shoes",
@@ -18,6 +21,7 @@ Content-Type: application/json
 
 PUT http://localhost:3000/v1/category/2
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
   "name": "nao sei",
@@ -28,4 +32,5 @@ Content-Type: application/json
 
 ###
 
-DELETE http://localhost:3000/v1/category/2
+DELETE http://localhost:3000/v1/category/10
+Authorization: Bearer {{token}}

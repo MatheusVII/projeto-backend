@@ -1,3 +1,6 @@
+#Token para o email user@mail.com e a senha 123@123, valido por um dia
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJ1c2VyQG1haWwuY29tIiwiaWF0IjoxNzc0NTQyNDAxLCJleHAiOjE3NzQ2Mjg4MDF9.kE8FbLRsmUFGGEjANubRJdCjZLlHTh_S9DNIVz5kPsM
+
 GET http://localhost:3000/v1/user/1
 
 ###
@@ -15,8 +18,9 @@ Content-Type: application/json
 
 ###
 
-PUT http://localhost:3000/v1/user/2
+PUT http://localhost:3000/v1/user/3
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
   "firstname": "user firstname 2",
@@ -27,3 +31,14 @@ Content-Type: application/json
 ###
 
 DELETE http://localhost:3000/v1/user/2
+Authorization: Bearer {{token}}
+
+###
+
+POST http://localhost:3000/v1/user/token
+Content-Type: application/json
+
+{
+  "email": "user@mail.com",
+  "password": "123@123"
+}

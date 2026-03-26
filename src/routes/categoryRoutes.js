@@ -1,4 +1,5 @@
 const express = require('express');
+const authMiddleware = require('../middlewares/authMiddleware.js');
 
 const router = express.Router();
 
@@ -83,7 +84,7 @@ router.get('/category/:id', async (req, res) => {
 
 })
 
-router.post('/category', async (req, res) => {
+router.post('/category', authMiddleware, async (req, res) => {
     try{
         const { name, slug, use_in_menu } = req.body;
 
@@ -105,7 +106,7 @@ router.post('/category', async (req, res) => {
 
 })
 
-router.put('/category/:id', async (req, res) => {
+router.put('/category/:id',  authMiddleware, async (req, res) => {
     try{
         const catId = req.params.id;
 
@@ -138,7 +139,7 @@ router.put('/category/:id', async (req, res) => {
     }
 })
 
-router.delete('/category/:id', async (req, res) => {
+router.delete('/category/:id',  authMiddleware, async (req, res) => {
     try{
         const catId = req.params.id;
 

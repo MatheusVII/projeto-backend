@@ -1,5 +1,8 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
+const authMiddleware = require('../middlewares/authMiddleware.js');
 
 const router = express.Router();
 
@@ -80,7 +83,44 @@ router.post('/user', async (req, res) => {
     }
 })
 
-router.put('/user/:id', async (req, res) => {
+router.post('/user/token', async(req, res) => {
+    try{
+        const { email, password } = req.body;
+
+        if(!email || !password){
+            return res.status(400).json({message: "Campos vazios"});
+        }
+
+        const user = await User.findOne({
+            where: { email: email }
+        })
+
+        console.log(user);
+
+        if(!user){
+            return res.status(400).json({message: "Credenciais invalidas"});
+        }
+
+        const passMatch = await bcrypt.compare(password, user.password);
+
+        if(!passMatch){
+            return res.status(400).json({message: "Credenciais invalidas"});
+        }
+
+        const token = jwt.sign(
+            { id: user.id, email: user.email},
+            process.env.JWT_SECRET,
+            { expiresIn: "1d" } 
+        );
+
+        return res.status(200).json({token: token});
+    } catch(err) {
+        console.log(err);
+        return res.status(500).json({message: "Internal server error"});
+    }
+})
+
+router.put('/user/:id', authMiddleware, async (req, res) => {
     try{
         const userId = req.params.id;
 
@@ -108,7 +148,7 @@ router.put('/user/:id', async (req, res) => {
     }
 })
 
-router.delete('/user/:id', async (req, res) => {
+router.delete('/user/:id', authMiddleware, async (req, res) => {
     try{
         const userId = req.params.id;
 

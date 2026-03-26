@@ -1,13 +1,17 @@
+#Token para o email user@mail.com e a senha 123@123, valido por um dia, gere um novo token em ./http/user.http
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJ1c2VyQG1haWwuY29tIiwiaWF0IjoxNzc0NTQyNDAxLCJleHAiOjE3NzQ2Mjg4MDF9.kE8FbLRsmUFGGEjANubRJdCjZLlHTh_S9DNIVz5kPsM
+
 GET http://localhost:3000/v1/product/search?limit=-1&option[2]=40
 
 ###
 
-GET http://localhost:3000/v1/product/1
+GET http://localhost:3000/v1/product/6
 
 ###
 
 POST http://localhost:3000/v1/product
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
   {
     "enabled": true,
@@ -51,8 +55,9 @@ Content-Type: application/json
 
 ###
 
-PUT http://localhost:3000/v1/product/3
+PUT http://localhost:3000/v1/product/6
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
   {
     "enabled": true,
@@ -69,16 +74,11 @@ Content-Type: application/json
         "content": "base64 da imagem 1" 
       },
       {
-        "id": 3,
-        "deleted": true
+        "content": "/uploads/imagemdetest5"
       },
       {
-        "id": 3,
-        "content": "base64 da imagem 3" 
-      },
-      {
-        "id": 1,
-        "content": "https://store.com/media/product-01/image-01.jpg"
+        "id": 7,
+        "content": "imagem atualizada" 
       }
     ],
     "options": [
@@ -98,4 +98,5 @@ Content-Type: application/json
 
 ###
 
-DELETE http://localhost:3000/v1/product/4
+DELETE http://localhost:3000/v1/product/6
+Authorization: Bearer {{token}}

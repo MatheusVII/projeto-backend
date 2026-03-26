@@ -1,9 +1,10 @@
 const express = require('express');
+const authMiddleware = require('../middlewares/authMiddleware.js');
 
 const router = express.Router();
 
 const { Op } = require('sequelize');
-const { Product, ProductOption, Category, ProductCategory } = require('../models');
+const { Product, ProductOption, Category, ProductCategory, ProductImage } = require('../models');
 
 router.get('/product/search', async(req, res) => {
     try{
@@ -94,7 +95,7 @@ router.get('/product/:id', async(req, res) => {
 
         const result = await Product.findByPk(prodId);
 
-        const { id, enabled, name, slug, stock, description, price, price_with_discount} = result;
+        const { id, enabled, name, slug, stock, description, price, price_with_discount } = result;
 
         const ids = await ProductCategory.findAll({
             where: {product_id: prodId},
@@ -107,6 +108,11 @@ router.get('/product/:id', async(req, res) => {
             }
         })
 
+        const images = await ProductImage.findAll({
+            where: { product_id: id },
+            attributes: ['id', 'path']
+        })
+
         let category_ids = [];
 
         if(ids.length){
@@ -115,9 +121,9 @@ router.get('/product/:id', async(req, res) => {
             })
         }
 
-        return res.json({
+        return res.status(200).json({
             id: id,
-            enabled: enabled,
+            enabled: enabled, 
             name: name,
             slug: slug,
             stock: stock,
@@ -125,6 +131,7 @@ router.get('/product/:id', async(req, res) => {
             price: price,
             price_with_discount: price_with_discount,
             category_ids: category_ids,
+            images: images,
             options: options
         })
     } catch(err) {
@@ -133,7 +140,7 @@ router.get('/product/:id', async(req, res) => {
     }
 })
 
-router.post('/product', async(req, res) => {
+router.post('/product', authMiddleware, async(req, res) => {
     try{
         const { enabled, name, slug, stock, description, price, price_with_discount, category_ids, images, options } = req.body;
 
@@ -158,7 +165,7 @@ router.post('/product', async(req, res) => {
             })
         }
 
-        if(options.length){
+        if(options){
             for (opt of options) {
                 await ProductOption.create({
                     product_id: productReturn.id,
@@ -171,6 +178,18 @@ router.post('/product', async(req, res) => {
             }
         }
 
+        if(images){
+            imagesNumber = images.length;
+            imagesArray = new Array(imagesNumber).fill("uploads/imagem-teste.png");
+            for (img of imagesArray) {
+                await ProductImage.create({
+                    product_id: productReturn.id,
+                    enabled: true,
+                    path: img
+                })
+            }
+        }
+
         return res.status(201).json({message: "Produto criado com sucesso"});
     } catch(err) {
         console.log(err);
@@ -178,7 +197,7 @@ router.post('/product', async(req, res) => {
     }
 })
 
-router.put('/product/:id', async(req, res) => {
+router.put('/product/:id', authMiddleware, async(req, res) => {
     try{
         const prodId = req.params.id;
         const { enabled, name, slug, stock, description, price, price_with_discount, category_ids, images, options } = req.body;
@@ -235,6 +254,31 @@ router.put('/product/:id', async(req, res) => {
         }
     }
 
+    if(images){
+        for (img of images){
+            if(img.deleted){
+                await ProductImage.destroy({
+                    where: { id: img.id }
+                })
+            }
+            else if(img.id && !img.deleted){
+                await ProductImage.update({
+                    enabled: img.enabled || true,
+                    path: img.content
+                },{
+                    where: { id: img.id }
+                }) 
+            } 
+            else{
+                await ProductImage.create({
+                    enabled: img.enabled || true, 
+                    path: img.content,
+                    product_id: prodId
+                })
+            }
+        }
+    }
+
     if(options.length > 0){
         for (opt of options) {
             if(opt.deleted){
@@ -279,7 +323,7 @@ router.put('/product/:id', async(req, res) => {
     }
 })
 
-router.delete('/product/:id', async(req, res) => {
+router.delete('/product/:id', authMiddleware, async(req, res) => {
     try{
         const prodId = req.params.id;
 
