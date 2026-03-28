@@ -1,7 +1,7 @@
 #Token para o email user@mail.com e a senha 123@123, valido por um dia, gere um novo token em ./http/user.http | Precisa do Rest Client instalado no VScode
 @token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJ1c2VyQG1haWwuY29tIiwiaWF0IjoxNzc0NTQyNDAxLCJleHAiOjE3NzQ2Mjg4MDF9.kE8FbLRsmUFGGEjANubRJdCjZLlHTh_S9DNIVz5kPsM
 
-GET http://localhost:3000/v1/product/search?limit=-1&match=jeans&option[14]=40,42
+GET http://localhost:3000/v1/product/search?limit=-1&match=jeans&option[14]=38
 
 ###
 

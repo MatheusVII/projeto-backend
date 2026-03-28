@@ -206,7 +206,7 @@ router.post('/product', authMiddleware, async(req, res) => {
             }
         }
 
-        return res.status(201).json({message: "Produto criado com sucesso"});
+        return res.status(201).json({message: "Produto criado com sucesso", data: {id: productReturn.id}});
     } catch(err) {
         console.log(err);
         return res.status(500).json({message: "Internal server error"});
