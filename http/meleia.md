@@ -1,0 +1,1 @@
+Esses arquivos .HTTP servem para testar as rotas no própio VS CODE, precisa ter a extenção do VS CODE Rest Client instalado.
