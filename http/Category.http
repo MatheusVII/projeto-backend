@@ -1,12 +1,10 @@
 #Token para o email user@mail.com e a senha 123@123, valido por um dia, gere um novo token em ./http/user.http | Precisa do Rest Client instalado no VScode
 @token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJ0ZXN0QGdtYWlsLmNvbSIsImlhdCI6MTc3NDcwOTIxNSwiZXhwIjoxNzc0Nzk1NjE1fQ.BLfqTxjo-fiXQxG3pmQxw0EwO-fjKSV1bxxmR5i-Ofs
 
-###
-
+### Pesquisar categoria pelo ID
 GET http://localhost:3000/v1/category/3
 
-###
-
+### Criar categoria
 POST http://localhost:3000/v1/category
 Content-Type: application/json
 Authorization: Bearer {{token}}
@@ -16,8 +14,8 @@ Authorization: Bearer {{token}}
   "slug": "shoes",
   "use_in_menu": true
 }  
-###
 
+### Atualizar a categoria pelo ID
 PUT http://localhost:3000/v1/category/2
 Content-Type: application/json
 Authorization: Bearer {{token}}
@@ -29,7 +27,6 @@ Authorization: Bearer {{token}}
 }  
 
 
-###
-
+### Apagar a categoria pelo ID
 DELETE http://localhost:3000/v1/category/10
 Authorization: Bearer {{token}}

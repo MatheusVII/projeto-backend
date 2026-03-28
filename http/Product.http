@@ -1,14 +1,13 @@
 #Token para o email user@mail.com e a senha 123@123, valido por um dia, gere um novo token em ./http/user.http | Precisa do Rest Client instalado no VScode
 @token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJ1c2VyQG1haWwuY29tIiwiaWF0IjoxNzc0NTQyNDAxLCJleHAiOjE3NzQ2Mjg4MDF9.kE8FbLRsmUFGGEjANubRJdCjZLlHTh_S9DNIVz5kPsM
 
+### Rota de pesquisa de produto com query options --> [ limit, page, fields, match, option[id da option] = value da option, category_ids, price-range ]
 GET http://localhost:3000/v1/product/search?limit=-1&match=jeans&option[14]=38
 
-###
-
+### Rota de pesquisa de produto pelo ID
 GET http://localhost:3000/v1/product/32
 
-###
-
+### Rota de criação de produto pelo ID
 POST http://localhost:3000/v1/product
 Content-Type: application/json
 Authorization: Bearer {{token}}
@@ -53,8 +52,7 @@ Authorization: Bearer {{token}}
     ]
   }
 
-###
-
+### Rota de atualização de produto pelo ID
 PUT http://localhost:3000/v1/product/6
 Content-Type: application/json
 Authorization: Bearer {{token}}
@@ -96,7 +94,6 @@ Authorization: Bearer {{token}}
     ]
   }
 
-###
-
+### Rota de deletar produto pelo ID
 DELETE http://localhost:3000/v1/product/6
 Authorization: Bearer {{token}}

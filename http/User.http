@@ -1,9 +1,10 @@
 #Token para o email user@mail.com e a senha 123@123, valido por um dia
 @token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJ1c2VyQG1haWwuY29tIiwiaWF0IjoxNzc0NjU1MjgxLCJleHAiOjE3NzQ3NDE2ODF9.pusk7CQBBN1aGHRpEnLfHI9LpfHmJe0TyTjV3xVEgbg
+
+### Rota de buscar informações do usuario pelo ID
 GET http://localhost:3000/v1/user/3
 
-###
-
+### Rota de criação/cadastro de usuario
 POST http://localhost:3000/v1/user
 Content-Type: application/json
 
@@ -15,8 +16,7 @@ Content-Type: application/json
   "confirmPassword": "123@123"
 }  
 
-###
-
+### Rota de atualização de usuario pelo ID
 PUT http://localhost:3000/v1/user/3
 Content-Type: application/json
 Authorization: Bearer {{token}}
@@ -27,13 +27,11 @@ Authorization: Bearer {{token}}
   "email": "user@mail.com"
 }  
 
-###
-
+### Rota de deletar o usuario pelo ID
 DELETE http://localhost:3000/v1/user/3
 Authorization: Bearer {{token}}
 
-###
-
+### Rota de geração de JWT, retorna o Token valido por um dia
 POST http://localhost:3000/v1/user/token
 Content-Type: application/json
 
