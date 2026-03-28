@@ -18,8 +18,12 @@ router.get('/category/search', async (req, res) => {
 
         const where = {};
 
-        if(use_in_menu !== undefined) {
+        console.log(use_in_menu);
+
+        if(use_in_menu === undefined) {
             where.use_in_menu = use_in_menu === "true";
+        } else{
+            where.use_in_menu = use_in_menu;
         }
 
         let attributes;
@@ -92,13 +96,13 @@ router.post('/category', authMiddleware, async (req, res) => {
             return res.status(400).json({message: "Preencha todos os campos"});
         }
 
-        await Category.create({
+        const createRes = await Category.create({
             name: name,
             slug: slug,
             use_in_menu: use_in_menu
         })
 
-        return res.status(201).json({message: "Categoria criada com sucesso!"});
+        return res.status(201).json({message: "Categoria criada com sucesso!", data:{id: createRes.id}});
     } catch(err) {
         console.log(err);
         return res.status(500).json({message: "Internal server error"});

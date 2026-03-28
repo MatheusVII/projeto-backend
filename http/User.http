@@ -1,7 +1,6 @@
 #Token para o email user@mail.com e a senha 123@123, valido por um dia
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJ1c2VyQG1haWwuY29tIiwiaWF0IjoxNzc0NTQyNDAxLCJleHAiOjE3NzQ2Mjg4MDF9.kE8FbLRsmUFGGEjANubRJdCjZLlHTh_S9DNIVz5kPsM
-
-GET http://localhost:3000/v1/user/1
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJ1c2VyQG1haWwuY29tIiwiaWF0IjoxNzc0NjU1MjgxLCJleHAiOjE3NzQ3NDE2ODF9.pusk7CQBBN1aGHRpEnLfHI9LpfHmJe0TyTjV3xVEgbg
+GET http://localhost:3000/v1/user/3
 
 ###
 
@@ -9,9 +8,9 @@ POST http://localhost:3000/v1/user
 Content-Type: application/json
 
 {
-  "firstname": "user firstname",
-  "surname": "user surname",
-  "email": "user@mail.com",
+  "firstname": "userTest",
+  "surname": "test",
+  "email": "test@gmail.com",
   "password": "123@123",
   "confirmPassword": "123@123"
 }  
@@ -30,7 +29,7 @@ Authorization: Bearer {{token}}
 
 ###
 
-DELETE http://localhost:3000/v1/user/2
+DELETE http://localhost:3000/v1/user/3
 Authorization: Bearer {{token}}
 
 ###
@@ -39,6 +38,6 @@ POST http://localhost:3000/v1/user/token
 Content-Type: application/json
 
 {
-  "email": "user@mail.com",
+  "email": "test@gmail.com",
   "password": "123@123"
 }

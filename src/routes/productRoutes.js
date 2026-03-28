@@ -55,10 +55,15 @@ router.get('/product/search', async(req, res) => {
 
         Object.keys(rest).forEach(key => {
             if(key.startsWith('option[')) {
-                const optionId = key.match(/\d+/)[0];
+                const optionId = parseInt(key.match(/\d+/)[0]);
                 const values = rest[key].split(',');
 
-                optionFilters.push({id: optionId, values: { [Op.in]: values}});
+                optionFilters.push({
+                    id: optionId,
+                    [Op.or]: values.map(v => ({
+                        values: { [Op.iLike]: `%${v}%` }
+                    }))
+                });
             }
         });
 
@@ -67,8 +72,19 @@ router.get('/product/search', async(req, res) => {
             queryOptions.offset = (page - 1) * limit;
         }
 
-        if(optionFilters.length){
-            queryOptions.include = [{model: ProductOption, required: true, where:{[Op.or]: optionFilters}}];
+        if (optionFilters.length) {
+            queryOptions.include = queryOptions.include || [];
+
+            optionFilters.forEach(filter => {
+                queryOptions.include.push({
+                    model: ProductOption,
+                    required: true,
+                    where: {
+                        id: filter.id,
+                        [Op.or]: filter[Op.or]
+                    }
+                });
+            });
         }
 
         if(fields){
