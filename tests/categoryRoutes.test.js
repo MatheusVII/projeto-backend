@@ -14,7 +14,7 @@ async function limparPostsDeTeste(){
     })
 };
 
-describe('GET /category/search', () => {
+describe('-TESTE DAS ROTAS DE CATEGORIAS-', () => {
 
     beforeAll(async () => {
         await limparPostsDeTeste();

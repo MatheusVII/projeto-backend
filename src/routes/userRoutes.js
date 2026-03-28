@@ -72,7 +72,7 @@ router.post('/user', async (req, res) => {
         })
 
         if(novoUser){
-            return res.status(201).json({message: "Usuario criado com sucesso"});
+            return res.status(201).json({message: "Usuario criado com sucesso", data: {id: novoUser.id}});
         } 
 
         return res.status(500).json({message: "Erro ao criar usuario"});
@@ -141,7 +141,7 @@ router.put('/user/:id', authMiddleware, async (req, res) => {
             where: { id: userId }
         });
 
-        return res.status(200).json({message: "Usuario atualizado com sucesso"});
+        return res.status(204).json();
     } catch(err) {
         console.log(err);
         return res.status(500).json({message: "Internal server error!"});
@@ -160,7 +160,7 @@ router.delete('/user/:id', authMiddleware, async (req, res) => {
             return res.status(404).json({message: "Usuario nao encontrado"});
         }
 
-        return res.status(200).json({message: "Usuario deletado com sucesso"});
+        return res.status(204).json();
         
     } catch(err){
         console.log(err);
