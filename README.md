@@ -30,7 +30,7 @@ Crie um arquivo `.env` na raiz do projeto:
 
 ```env
 DATABASE_URL=postgresql://neondb_owner:npg_Gk4HOwch5lrS@ep-green-credit-acb2srx8-pooler.sa-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require
-JWT_SECRET=secreta
+JWT_SECRET=uma_chave_hyper_mega_secreta_do_meu_json_web_token
 ```
 
 ---
